@@ -46,17 +46,25 @@ server.get("*", function(req, res) {
 server.delete("/api/notes/:id", function (req,res) {
     const id = req.params.id;
     //use the id sent from the frontend via req.params to remove a note from db.json
-
+    db.splice(id - 1, 1);
+    saveDB();
+    console.log(req);
+    res.redirect("/notes");
 });
+
+function saveDB() {
+// write new state of db to the .json file
+    fs.writeFile('./db.json', JSON.stringify(db), function writeJSON(err) {
+    if (err) return console.log(err);
+    return 'Updated';
+    });
+}
 
 function saveNote(note) {
     // add new note to db array
     db.push(note);
     // write new state of db to the .json file
-    fs.writeFile('./db.json', JSON.stringify(db), function writeJSON(err) {
-        if (err) return console.log(err);
-        return 'Updated';
-    });
+    saveDB();
 }
 
 // Write a server for the designated port
