@@ -19,9 +19,21 @@ function getNotes() {
         $(".note-title").first().val("");
         $(".note-textarea").first().val("");
         $.each(response, function(i, note) {
-            let list = $(".list-group").first();
-            let noteItem = `<li><h4>${note.title}</h4><p>${note.message}</p></li>`;
-            $(list).append(noteItem);
+            if (note.message.length) {
+                let list = $(".list-group").first();
+                let noteItem = `<li>${note.title}<p style="display:none">${note.message}</p><i id=${note.id} class="fas fa-trash-alt deleteNote" ></i></li>`;
+                $(list).append(noteItem);
+            }
         });
+        let deleteBtn = $(".deleteNote");
+        deleteBtn.on("click", function() {
+        let pos = $(this).prop("id");
+        debugger
+        $.ajax({ url: `/api/notes/${pos}`, method: "DELETE" })
+        .done(function(response){
+            debugger
+            getNotes();
+        })
+     })
     })
 }
