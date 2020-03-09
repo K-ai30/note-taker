@@ -25,7 +25,6 @@ server.get("/api/notes", function (req,res) {
     //send the frontend the whole array in db.json
     // send response in html routes
     res.json(db);
-
 });
 
 server.post("/api/notes", function (req,res) {
@@ -38,18 +37,17 @@ server.post("/api/notes", function (req,res) {
     res.json(db);
 });
 
+server.post("/api/notes/:id", function (req,res) {
+    const id = req.params.id;
+    //use the id sent from the frontend via req.params to remove a note from db.json
+    db.splice(id, 1);
+    saveDB();
+    res.json({id: id})
+});
+
 // catches the things at the things above it
 server.get("*", function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
-});
-
-server.delete("/api/notes/:id", function (req,res) {
-    const id = req.params.id;
-    //use the id sent from the frontend via req.params to remove a note from db.json
-    db.splice(id - 1, 1);
-    saveDB();
-    console.log(req);
-    res.redirect("/notes");
 });
 
 function saveDB() {
