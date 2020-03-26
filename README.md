@@ -30,7 +30,7 @@ Clone to your local machine and open in your favorite code editor to check it ou
 
 ### Demo
 
-![](images/DeveloperProfileGeneratorDemo.gif)
+![](https://github.com/K-ai30/note-taker/blob/master/images/Notetakerdemo.gif)
 
 ### Notes
 
