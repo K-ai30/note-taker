@@ -1,5 +1,4 @@
 # Note Taker
----
 
 ### Description
 
